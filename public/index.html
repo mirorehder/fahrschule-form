@@ -4,68 +4,240 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fahrschule – Anmeldung</title>
+
+  <!-- Tailwind (modern styling via CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Flatpickr (calendar + time picker) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
+
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; }
-    label { display:block; margin-top: 14px; font-weight: 600; }
-    input, select, textarea { width: 100%; padding: 10px; margin-top: 6px; }
-    button { margin-top: 18px; padding: 12px 16px; cursor:pointer; }
-    .hidden { display:none; }
-    .notice { margin-top: 14px; }
+    /* Make flatpickr fit the design */
+    .flatpickr-calendar { border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.15); }
+    .flatpickr-time { border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; }
   </style>
 </head>
 
-<body>
-  <h1>Anmeldung in 1 Minute</h1>
+<body class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100">
+  <main class="mx-auto max-w-3xl px-4 py-10">
+    <!-- Header -->
+    <header class="mb-8">
+      <div class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-slate-200">
+        <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+        Anmeldung in 1 Minute
+      </div>
+      <h1 class="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight">
+        Starte deine Fahrstunden – schnell & unkompliziert
+      </h1>
+      <p class="mt-2 text-slate-300">
+        Füll das Formular aus. Wir melden uns innerhalb von 24 Stunden zur Terminvereinbarung.
+      </p>
+    </header>
 
-  <form id="leadForm">
-    <label>Vorname</label>
-    <input name="firstName" required />
+    <!-- Card -->
+    <section class="rounded-3xl bg-white/5 p-6 sm:p-8 ring-1 ring-white/10 backdrop-blur">
+      <form id="leadForm" class="space-y-6">
+        <!-- Name row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm text-slate-200">Vorname</label>
+            <input name="firstName" required
+              class="mt-2 w-full rounded-2xl bg-white/10 px-4 py-3 text-slate-100 placeholder:text-slate-400 ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              placeholder="Max" />
+          </div>
+          <div>
+            <label class="text-sm text-slate-200">Nachname</label>
+            <input name="lastName" required
+              class="mt-2 w-full rounded-2xl bg-white/10 px-4 py-3 text-slate-100 placeholder:text-slate-400 ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              placeholder="Muster" />
+          </div>
+        </div>
 
-    <label>Nachname</label>
-    <input name="lastName" required />
+        <!-- Contact row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm text-slate-200">E-Mail</label>
+            <input name="email" type="email" required
+              class="mt-2 w-full rounded-2xl bg-white/10 px-4 py-3 text-slate-100 placeholder:text-slate-400 ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              placeholder="max@mail.ch" />
+          </div>
+          <div>
+            <label class="text-sm text-slate-200">Telefon</label>
+            <input name="phone" required
+              class="mt-2 w-full rounded-2xl bg-white/10 px-4 py-3 text-slate-100 placeholder:text-slate-400 ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              placeholder="+41 79 123 45 67" />
+            <p class="mt-2 text-xs text-slate-400">Tipp: Am besten im Format +41…</p>
+          </div>
+        </div>
 
-    <label>E-Mail</label>
-    <input name="email" type="email" required />
+        <!-- Meta row -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="text-sm text-slate-200">Wohnort</label>
+            <input name="city" required
+              class="mt-2 w-full rounded-2xl bg-white/10 px-4 py-3 text-slate-100 placeholder:text-slate-400 ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+              placeholder="Zürich" />
+          </div>
+          <div>
+            <label class="text-sm text-slate-200">Kategorie</label>
+            <select name="category" required
+              class="mt-2 w-full rounded-2xl bg-white/10 px-4 py-3 text-slate-100 ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+              <option value="" class="bg-slate-900">Bitte wählen…</option>
+              <option class="bg-slate-900">B</option>
+              <option class="bg-slate-900">A</option>
+              <option class="bg-slate-900">BE</option>
+              <option class="bg-slate-900">Andere</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm text-slate-200">Quelle</label>
+            <select name="source" required
+              class="mt-2 w-full rounded-2xl bg-white/10 px-4 py-3 text-slate-100 ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+              <option value="" class="bg-slate-900">Bitte wählen…</option>
+              <option class="bg-slate-900">Google</option>
+              <option class="bg-slate-900">Instagram</option>
+              <option class="bg-slate-900">TikTok</option>
+              <option class="bg-slate-900">Empfehlung</option>
+              <option class="bg-slate-900">Andere</option>
+            </select>
+          </div>
+        </div>
 
-    <label>Telefon (z.B. +4179...)</label>
-    <input name="phone" required />
+        <!-- Calendar gadget (collapsible) -->
+        <details class="rounded-2xl bg-white/5 ring-1 ring-white/10 p-4 open:bg-white/5">
+          <summary class="cursor-pointer select-none flex items-center justify-between">
+            <div>
+              <div class="text-sm font-medium text-slate-100">Mögliche freie Termine auswählen</div>
+              <div class="text-xs text-slate-400">Klicke, um den Kalender auszuklappen (mehrere Termine möglich)</div>
+            </div>
+            <span class="text-slate-300 text-sm">▾</span>
+          </summary>
 
-    <label>Wohnort</label>
-    <input name="city" required />
+          <div class="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <!-- Picker -->
+            <div>
+              <label class="text-sm text-slate-200">Kalender</label>
+              <input id="availabilityPicker" type="text"
+                class="mt-2 w-full rounded-2xl bg-white/10 px-4 py-3 text-slate-100 placeholder:text-slate-400 ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                placeholder="Termine auswählen…" />
+              <p class="mt-2 text-xs text-slate-400">
+                Wähle mehrere Slots (Datum + Uhrzeit). Tipp: erst Datum, dann Uhrzeit, dann nächsten Slot.
+              </p>
+            </div>
 
-    <label>Kategorie</label>
-    <select name="category" required>
-      <option value="">Bitte wählen…</option>
-      <option>B</option>
-      <option>A</option>
-      <option>BE</option>
-      <option>Andere</option>
-    </select>
+            <!-- Selected list -->
+            <div class="rounded-2xl bg-black/20 ring-1 ring-white/10 p-4">
+              <div class="text-sm font-medium text-slate-100">Ausgewählte Termine</div>
+              <p class="text-xs text-slate-400 mt-1">Diese Liste wird in Google Sheets in einer Zelle gespeichert.</p>
+              <ul id="availabilityList" class="mt-3 space-y-2 text-sm text-slate-200"></ul>
+              <button type="button" id="clearAvailability"
+                class="mt-4 inline-flex items-center justify-center rounded-xl bg-white/10 px-3 py-2 text-xs text-slate-200 ring-1 ring-white/10 hover:bg-white/15">
+                Auswahl löschen
+              </button>
+            </div>
+          </div>
+        </details>
 
-    <label>Wie hast du uns gefunden?</label>
-    <select name="source" required>
-      <option value="">Bitte wählen…</option>
-      <option>Google</option>
-      <option>Instagram</option>
-      <option>TikTok</option>
-      <option>Empfehlung</option>
-      <option>Andere</option>
-    </select>
+        <!-- message -->
+        <div>
+          <label class="text-sm text-slate-200">Nachricht (optional)</label>
+          <textarea name="message" rows="4"
+            class="mt-2 w-full rounded-2xl bg-white/10 px-4 py-3 text-slate-100 placeholder:text-slate-400 ring-1 ring-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            placeholder="Optional: Wünsche, Zeiten, Fragen…"></textarea>
+        </div>
 
-    <label>Nachricht (optional)</label>
-    <textarea name="message" rows="4"></textarea>
+        <!-- Honeypot -->
+        <div class="hidden">
+          <label>Website</label>
+          <input name="website" autocomplete="off" />
+        </div>
 
-    <!-- Honeypot (Spam-Falle): echte Nutzer füllen das nicht aus -->
-    <div class="hidden">
-      <label>Website</label>
-      <input name="website" autocomplete="off" />
-    </div>
+        <!-- Submit -->
+        <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+          <button type="submit"
+            class="inline-flex items-center justify-center rounded-2xl bg-emerald-400 px-5 py-3 font-medium text-slate-950 hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-200">
+            Jetzt anmelden
+          </button>
 
-    <button type="submit">Jetzt anmelden</button>
-    <p class="notice" id="status"></p>
-  </form>
+          <p id="status" class="text-sm text-slate-300"></p>
+        </div>
+      </form>
+    </section>
+
+    <footer class="mt-8 text-xs text-slate-500">
+      Mit dem Absenden stimmst du zu, dass wir dich zur Terminvereinbarung kontaktieren.
+    </footer>
+  </main>
 
   <script>
+    // Holds selected date-time slots as ISO strings
+    const selectedSlots = new Set();
+
+    function formatDE(isoString) {
+      const d = new Date(isoString);
+      const pad = (n) => String(n).padStart(2, "0");
+      return `${pad(d.getDate())}.${pad(d.getMonth()+1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    function renderSlots() {
+      const ul = document.getElementById("availabilityList");
+      ul.innerHTML = "";
+
+      const slots = Array.from(selectedSlots).sort();
+      if (slots.length === 0) {
+        ul.innerHTML = `<li class="text-slate-400">Noch keine Termine ausgewählt.</li>`;
+        return;
+      }
+
+      for (const iso of slots) {
+        const li = document.createElement("li");
+        li.className = "flex items-center justify-between gap-3 rounded-xl bg-white/5 ring-1 ring-white/10 px-3 py-2";
+        li.innerHTML = `
+          <span>${formatDE(iso)}</span>
+          <button type="button" class="text-xs text-slate-300 hover:text-white">Entfernen</button>
+        `;
+        li.querySelector("button").addEventListener("click", () => {
+          selectedSlots.delete(iso);
+          renderSlots();
+        });
+        ul.appendChild(li);
+      }
+    }
+
+    // Flatpickr calendar (multiple date-time selections)
+    const picker = flatpickr("#availabilityPicker", {
+      locale: "de",
+      enableTime: true,
+      time_24hr: true,
+      minuteIncrement: 15,
+      // key: multiple picks
+      mode: "multiple",
+      dateFormat: "Y-m-d\\TH:i:S", // we will treat this as ISO-ish; then normalize
+      // nicer display in input:
+      altInput: true,
+      altFormat: "d.m.Y H:i",
+      minDate: "today",
+      onChange: (selectedDates) => {
+        // normalize to real ISO strings
+        selectedSlots.clear();
+        for (const d of selectedDates) {
+          selectedSlots.add(new Date(d).toISOString());
+        }
+        renderSlots();
+      },
+    });
+
+    document.getElementById("clearAvailability").addEventListener("click", () => {
+      picker.clear();
+      selectedSlots.clear();
+      renderSlots();
+    });
+
+    renderSlots();
+
+    // Submit
     const form = document.getElementById('leadForm');
     const statusEl = document.getElementById('status');
 
@@ -76,6 +248,12 @@
       const fd = new FormData(form);
       const payload = Object.fromEntries(fd.entries());
 
+      // Put availability into one field for Sheets (newline-separated)
+      const slots = Array.from(selectedSlots).sort();
+      payload.availability = slots.map(formatDE).join("\n"); // human-readable list
+      payload.availability_iso = slots.join(","); // optional: machine-readable
+      payload.createdAt = new Date().toISOString();
+
       try {
         const res = await fetch('/api/lead', {
           method: 'POST',
@@ -84,11 +262,13 @@
         });
 
         const data = await res.json();
-
         if (!res.ok) throw new Error(data?.error || 'Fehler beim Senden');
 
         statusEl.textContent = "✅ Danke! Wir melden uns innerhalb von 24 Stunden.";
         form.reset();
+        picker.clear();
+        selectedSlots.clear();
+        renderSlots();
       } catch (err) {
         statusEl.textContent = "❌ Konnte nicht gesendet werden: " + err.message;
       }
